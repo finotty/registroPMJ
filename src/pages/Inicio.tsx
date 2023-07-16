@@ -14,6 +14,7 @@ type OrderProps ={
   when: any;
   problema:string;
   solucao:string;
+  tecnico:string;
 
 }
 export function Inicio() {
@@ -22,8 +23,8 @@ export function Inicio() {
   const db = getFirestore(app);
   
   function concatenar(objeto:any) {
-    const { secretaria, problema, solucao, dataFechamento } = objeto;
-    const resultado = `Secretaria: ${secretaria} \n\nProblema: ${problema} \n\nSolução: ${solucao}\n\nEncerrado em: \n${dataFechamento}`;
+    const { secretaria, problema, solucao, tecnico, dataFechamento } = objeto;
+    const resultado = `Secretaria: ${secretaria} \n\nProblema: ${problema} \n\nSolução: ${solucao} \n\nTécnico: ${tecnico} \n\nEncerrado em: \n${dataFechamento}`;
     return resultado;
   }
   
@@ -34,9 +35,9 @@ export function Inicio() {
       secretaria: item.secretaria,
       problema: item.problema,
       solucao: item.solucao,
+      tecnico: item.tecnico,
       dataFechamento: item.when
-    }
-    })
+    }})
  
     Alert.alert('Informações sobre o chamado',concatenar(ordersFormatado[0]))
     
@@ -55,12 +56,13 @@ export function Inicio() {
      const order: OrderProps[] = [];
        
        querySnapshot.forEach((doc) => {
-         const {secretaria,problema,solucao,created_at} = doc.data();
+         const {secretaria,problema,solucao,tecnico,created_at} = doc.data();
            order.push({
              id: doc.id,
              secretaria,
              problema,
              solucao,
+             tecnico,
              when:dateFormat(created_at)});
        });
 

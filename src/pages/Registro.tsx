@@ -13,6 +13,7 @@ export function Registro() {
     const db = getFirestore(app);
 
     const [secretaria, setSecretaria] = useState('');
+    const [tecnico, setTecnico] = useState('');
     const [problema, setProblema] = useState('');
     const [solucao, setSolucao] = useState('');
     const [obs, setObs] = useState('');
@@ -23,6 +24,7 @@ export function Registro() {
         const msg = 'Secretaria: '+secretaria+' \n\n'+
                     'Problema: '+problema+' \n\n'+
                     'Solução: '+solucao+' \n\n'+
+                    'Técnico: '+tecnico+' \n\n'+
                     fObs
        return msg;
     }
@@ -32,9 +34,9 @@ export function Registro() {
         const mensagemEncoded = encodeURIComponent(mensagem);
         const url = `whatsapp://send?text=${mensagemEncoded}&app_absent=0&action=invite&chat_id=https://chat.whatsapp.com/`;
         Linking.openURL(url);
-      }
+    }
 
-      async function registrarChamado(){
+    async function registrarChamado(){
         setLoading(true);
         /* 
          Verifica se os campos secretaria, problema e  solucao  estão  preenchidos.
@@ -45,7 +47,7 @@ export function Registro() {
          a solicitação.
         */
      
-        if(!secretaria || !problema || !solucao){
+        if(!secretaria || !problema || !solucao || !tecnico){
           return Alert.alert('Registrar', 'Preencha todos os campos.');
         }
     
@@ -53,6 +55,7 @@ export function Registro() {
           secretaria,
           problema,
           solucao,
+          tecnico,
           created_at: Timestamp.now(),
         })
         .then(() => {
@@ -64,23 +67,26 @@ export function Registro() {
           console.log(error);
           return Alert.alert('Solicitação', 'Não foi possivel registrar o chamado.');
         })
-     
-      }
+     }
 
   return (
     <KeyboardAvoidingView behavior='height' style={styles.container}>
             <ScrollView  showsVerticalScrollIndicator={false} >
-              <View style={{ marginTop:30}}>
+              <View style={{ marginTop:40}}>
                     <View style={styles.cabecalho}>
                      <Text style={styles.cabecalhoTXT}>Registrar chamado</Text>
                     </View>
 
-                    <View style={[styles.corpo,{marginTop:60}]}>
+                    <View style={[styles.corpo,{marginTop:50}]}>
                        <TextInput 
                             style={styles.input}
-                            placeholder='Secretaria'
+                            placeholder='Técnico:'
+                            onChangeText={(text) => setTecnico(text.toUpperCase())}
+                        />
+                       <TextInput 
+                            style={styles.input}
+                            placeholder='Secretaria:'
                             onChangeText={(text) => setSecretaria(text.toUpperCase())}
-
                         />
                         <TextInput 
                             style={[styles.input,styles.inputMultiline]}
@@ -110,12 +116,8 @@ export function Registro() {
                             onPress={() => registrarChamado()} 
                         /> 
                     </View>
-
-                </View>
-       
+                </View>    
             </ScrollView>
-
-
     </KeyboardAvoidingView>
   );
 }
