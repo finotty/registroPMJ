@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { View, Text, TextInput, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
 import Checkbox from 'expo-checkbox';
+import {Picker} from '@react-native-picker/picker';
 import { styles } from '../../styles';
 import { Botao } from '../components/Botao';
 import * as Linking from 'expo-linking';
@@ -19,28 +20,23 @@ export function Registro() {
     const [solicitante, setSolicitante] = useState('');
     const [loading, setLoading] = useState(false);
     const [resolvido, setResolvido] = useState(false);
+    const [naoResolvido, setNaoResolvido] = useState(false);
     const [horaInicial, setHoraInicial] = useState('');
     const [horaFinal, setHoraFinal] = useState('');
-    const [isChecked, setChecked] = useState(false);
 
     function formatarMensagem(){
         const fObs = obs != ''? 'Observação: '+obs: obs;
-        const fSolicitante = solicitante != '' ? 'Solicitante: '+solicitante+'\n\n' : solicitante;
-        const fResolvido = resolvido == true ? 'Sim (X)' : 'Não (X)';
-        const msg = 'Chamado #'+
+        const fResolvido = resolvido == true ? 'Sim (X) Não ( )' : 'Sim ( ) Não (X)';
+        const msg = 'Chamado #'+'\n'+
                     'Local do serviço: '+secretaria+' \n'+
-                    'Nome do solicitante: '+fSolicitante+' \n'+
+                    'Nome do solicitante: '+solicitante+' \n'+
                     'Técnico: '+tecnico+' \n\n'+
-
                     'Problema: '+problema+' \n\n'+
                     '*Preenchido pelo técnico*'+'\n'+
-
-                    '*Horário inicial do suporte: '+horaInicial+' \n\n'+  //incluir
-                    '*Horário final do suporte: '+horaFinal+' \n\n'+    //incluir
-
-                    '*Resolução do suporte: '+solucao+' \n\n'+
-                    
-                    'Resolvido: '+fResolvido+' \n\n' //incluir
+                    '*Horário inicial do suporte: '+horaInicial+' \n'+  
+                    '*Horário final do suporte: '+horaFinal+' \n\n'+    
+                    '*Resolução do suporte: '+solucao+' \n\n'+     
+                    'Resolvido: '+fResolvido+' \n\n' 
                     fObs
        return msg;
     }
@@ -88,17 +84,29 @@ export function Registro() {
   return (
     <KeyboardAvoidingView behavior='height' style={styles.container}>
             <ScrollView  showsVerticalScrollIndicator={false} >
-              <View style={{ marginTop:40}}>
+              <View style={{ marginTop:30}}>
                     <View style={styles.cabecalho}>
                      <Text style={styles.cabecalhoTXT}>Registrar chamado</Text>
                     </View>
 
-                    <View style={[styles.corpo,{marginTop:50}]}>
-                       <TextInput 
-                            style={styles.input}
-                            placeholder='Técnico:'
-                            onChangeText={setTecnico}
-                        />
+                    <View style={[styles.corpo,{marginTop:40}]}>
+                    
+                   <View style={{backgroundColor:'#5192AE', width:300,height:56, alignItems:'center', justifyContent:'center',paddingTop:11,marginBottom:10, borderRadius:10}}>
+
+                    <Picker
+                        style={[styles.input,{height:45,width:290}]}
+                        selectedValue={tecnico}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setTecnico(itemValue)
+                        }>
+                        <Picker.Item  label="Selecione o técnico" value="tecnico" />
+                        <Picker.Item label="Hugo" value="hugo" />
+                        <Picker.Item label="Pierry" value="pierry" />
+                        <Picker.Item label="Leonardo" value="leonardo" />
+                        <Picker.Item label="Felipe" value="felipe" />
+                    </Picker>
+                    </View>
+            
                         <TextInput 
                             style={styles.input}
                             placeholder='Solicitante:'
@@ -133,12 +141,12 @@ export function Registro() {
                                     onChangeText={setHoraFinal}
                                 />
                             </View>
-                        <View style={{flexDirection:'row'}}>
-                            <Text style={{color:'#fff', fontSize:18}}>Resolvido?</Text>
-                            <Text style={{color:'#fff'}} >Sim</Text>
-                            <Checkbox style={{}} value={resolvido} onValueChange={setResolvido} />
-                            <Text style={{color:'#fff'}} >Não</Text>
-                            <Checkbox style={{}} value={resolvido} onValueChange={setResolvido} />
+                        <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',width:'82%',marginTop:-10,marginBottom:5}}>
+                            <Text style={{color:'#fff', fontSize:18, fontWeight:'bold', marginRight:10}}>Resolvido?</Text>
+                            <Text style={{color:'#fff',marginRight:2, fontSize:18}} >Sim</Text>
+                            <Checkbox style={{marginRight:5, backgroundColor:'#fff'}} value={resolvido} onValueChange={setResolvido} />
+                            <Text style={{color:'#fff',marginRight:2, fontSize:18}} >Não</Text>
+                            <Checkbox style={{backgroundColor:'#fff'}} value={naoResolvido} onValueChange={setNaoResolvido} />
 
                            
 
@@ -152,7 +160,7 @@ export function Registro() {
                         />
                     </View>
 
-                    <View  style={[styles.rodape,{marginTop:20}]}>
+                    <View  style={[styles.rodape,{marginTop:10}]}>
                         <Botao 
                             style={loading == true ? { backgroundColor:'#4e4d4a'}: null }
                             disabled={loading}
