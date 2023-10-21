@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
         fontWeight:'bold'
     },
     corpo:{
-        flex:1,
+        flex:2,
         justifyContent:'center',
         alignItems:'center',
         marginTop:-20
@@ -56,23 +56,33 @@ export const styles = StyleSheet.create({
         backgroundColor:'#5192AE',
         width:300,
         borderRadius:10,
-        height:40,
+        minHeight:40,
         fontSize:16,
         paddingLeft:8,
-        marginBottom:10
+        marginBottom:12
     },
     inputMultiline:{
-        height:100, 
+        minHeight:65, 
         textAlignVertical:'top',
         paddingTop:2, 
         textAlign:'justify'
     },
     rodape:{
-        flex:3,
-        marginBottom:45,
+        flex:2.7,
+        marginBottom:35,
         alignItems:'center',
         justifyContent:'center',
         
 
+    },
+    tabelaSolucao:{
+        padding:5,
+        borderBottomWidth:1
+    },
+    tabelaSolucaoTXT:{
+        fontSize:14,
+    },
+    tabelaSolucaoBTN:{
+     alignItems:'center'
     }
 });

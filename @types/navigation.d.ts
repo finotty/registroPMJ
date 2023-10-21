@@ -3,6 +3,7 @@ export declare global {
         interface RootParamList {
             inicio: undefined;
             registro:undefined;
+            listaSolucao:undefined;
         }
     }
 }

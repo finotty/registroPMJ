@@ -1,30 +1,46 @@
 import React,{useState} from 'react';
 import { View, Text, TextInput, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
+import Checkbox from 'expo-checkbox';
 import { styles } from '../../styles';
 import { Botao } from '../components/Botao';
 import * as Linking from 'expo-linking';
 import { useNavigation } from '@react-navigation/native';
-
 import app from '../conexaoFirebase/FireBD';
 import { getFirestore ,collection,Timestamp,addDoc} from "firebase/firestore";
 
 export function Registro() {
     const navigation = useNavigation();
     const db = getFirestore(app);
-
     const [secretaria, setSecretaria] = useState('');
     const [tecnico, setTecnico] = useState('');
     const [problema, setProblema] = useState('');
     const [solucao, setSolucao] = useState('');
     const [obs, setObs] = useState('');
-    const [loading, setLoading] = useState(false)
+    const [solicitante, setSolicitante] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [resolvido, setResolvido] = useState(false);
+    const [horaInicial, setHoraInicial] = useState('');
+    const [horaFinal, setHoraFinal] = useState('');
+    const [isChecked, setChecked] = useState(false);
 
     function formatarMensagem(){
-        const fObs = obs != ''? 'Observação: '+obs: obs
-        const msg = 'Secretaria: '+secretaria+' \n\n'+
-                    'Problema: '+problema+' \n\n'+
-                    'Solução: '+solucao+' \n\n'+
+        const fObs = obs != ''? 'Observação: '+obs: obs;
+        const fSolicitante = solicitante != '' ? 'Solicitante: '+solicitante+'\n\n' : solicitante;
+        const fResolvido = resolvido == true ? 'Sim (X)' : 'Não (X)';
+        const msg = 'Chamado #'+
+                    'Local do serviço: '+secretaria+' \n'+
+                    'Nome do solicitante: '+fSolicitante+' \n'+
                     'Técnico: '+tecnico+' \n\n'+
+
+                    'Problema: '+problema+' \n\n'+
+                    '*Preenchido pelo técnico*'+'\n'+
+
+                    '*Horário inicial do suporte: '+horaInicial+' \n\n'+  //incluir
+                    '*Horário final do suporte: '+horaFinal+' \n\n'+    //incluir
+
+                    '*Resolução do suporte: '+solucao+' \n\n'+
+                    
+                    'Resolvido: '+fResolvido+' \n\n' //incluir
                     fObs
        return msg;
     }
@@ -81,7 +97,12 @@ export function Registro() {
                        <TextInput 
                             style={styles.input}
                             placeholder='Técnico:'
-                            onChangeText={(text) => setTecnico(text.toUpperCase())}
+                            onChangeText={setTecnico}
+                        />
+                        <TextInput 
+                            style={styles.input}
+                            placeholder='Solicitante:'
+                            onChangeText={setSolicitante}
                         />
                        <TextInput 
                             style={styles.input}
@@ -100,9 +121,32 @@ export function Registro() {
                             multiline
                             onChangeText={setSolucao}
                         />
+                            <View style={{flexDirection:'row', width:'82%', justifyContent:'space-between'}}>
+                                <TextInput 
+                                    style={[styles.input,{width:'49%'}]}
+                                    placeholder='Hora Inicial:'
+                                    onChangeText={setHoraInicial}
+                                />
+                                <TextInput 
+                                    style={[styles.input,{width:'49%'}]}
+                                    placeholder='Hora Final:'
+                                    onChangeText={setHoraFinal}
+                                />
+                            </View>
+                        <View style={{flexDirection:'row'}}>
+                            <Text style={{color:'#fff', fontSize:18}}>Resolvido?</Text>
+                            <Text style={{color:'#fff'}} >Sim</Text>
+                            <Checkbox style={{}} value={resolvido} onValueChange={setResolvido} />
+                            <Text style={{color:'#fff'}} >Não</Text>
+                            <Checkbox style={{}} value={resolvido} onValueChange={setResolvido} />
+
+                           
+
+                        </View>
+
                         <TextInput 
-                            style={[styles.input,styles.inputMultiline]}
-                            placeholder='OBS:'
+                            style={[styles.input,styles.inputMultiline,{height:55}]}
+                            placeholder='OBS(opcional):'
                             multiline
                             onChangeText={setObs}
                         />
