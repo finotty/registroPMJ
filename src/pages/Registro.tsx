@@ -6,12 +6,12 @@ import { styles } from '../../styles';
 import { Botao } from '../components/Botao';
 import * as Linking from 'expo-linking';
 import { useNavigation } from '@react-navigation/native';
-import app from '../conexaoFirebase/FireBD';
+import bank from '../conexaoFirebase/FireBD';
 import { getFirestore ,collection,Timestamp,addDoc} from "firebase/firestore";
 
 export function Registro() {
     const navigation = useNavigation();
-    const db = getFirestore(app);
+    const db = getFirestore(bank);
     const [secretaria, setSecretaria] = useState('');
     const [tecnico, setTecnico] = useState('');
     const [problema, setProblema] = useState('');

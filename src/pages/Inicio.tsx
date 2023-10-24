@@ -4,12 +4,13 @@ import { styles } from '../../styles';
 import { Botao } from '../components/Botao';
 import { Tabela } from '../components/Tabela';
 import { useNavigation } from '@react-navigation/native';
-import app from '../conexaoFirebase/FireBD';
+import bank from '../conexaoFirebase/FireBD';
 import { getFirestore, collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { dateFormat } from '../utils/firestoreDateFormat';
 
-import ModalS from '../components/ModalS';
+//import ModalS from '../components/ModalS';
 import ModalInicio from '../components/ModalInicio';
+
 
 type OrderProps ={
   id: string;
@@ -23,7 +24,7 @@ type OrderProps ={
 export function Inicio() {
   const navigation = useNavigation();
   const [orders, setOrders] = useState <OrderProps[]>([]);
-  const db = getFirestore(app);
+  const db = getFirestore(bank);
   const [modalVisible, setModalVisible] = useState(false);
   const [dataModal, setDataModal] = useState({});
   

@@ -1,10 +1,10 @@
 import React,{useState, useEffect} from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList,Alert } from 'react-native';
 import { styles } from '../../styles';
 import { Botao } from '../components/Botao';
 import { TabelaSolucao } from '../components/TabelaSolucao';
 import { useNavigation } from '@react-navigation/native';
-import app from '../conexaoFirebase/FireBD';
+import bank from '../conexaoFirebase/FireBD';
 import { getFirestore, collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { dateFormat } from '../utils/firestoreDateFormat';
 import ModalS from '../components/ModalS';
@@ -19,7 +19,7 @@ type OrderProps ={
 export function ListaSolucao() {
   const navigation = useNavigation();
   const [orders, setOrders] = useState <OrderProps[]>([]);
-  const db = getFirestore(app);
+  const db = getFirestore(bank);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalDetalhes, setModalDetalhes] = useState(false);
@@ -45,7 +45,7 @@ export function ListaSolucao() {
   }
 
   useEffect(() => {
-  
+     Alert.alert('Atenção','Ainda em desenvolvimento.')
     const buscaDados =  async () => {  
      /*
        Esta  função  lê dados  de uma coleção no Firebase em tempo real, 
