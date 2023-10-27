@@ -6,7 +6,6 @@ import app from '../conexaoFirebase/FireBD';
 import { getFirestore ,collection,Timestamp,addDoc} from "firebase/firestore";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PassosForm from './PassosForm';
-
 import ReactNativeModal from 'react-native-modal';
 
 interface ModalProps {

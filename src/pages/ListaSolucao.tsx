@@ -45,7 +45,7 @@ export function ListaSolucao() {
   }
 
   useEffect(() => {
-     Alert.alert('Atenção','Ainda em desenvolvimento.')
+   
     const buscaDados =  async () => {  
      /*
        Esta  função  lê dados  de uma coleção no Firebase em tempo real, 

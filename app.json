@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "RegistroPMJ",
-    "slug": "RegistroPMJ",
+    "name": "registroPMJ",
+    "slug": "registroPMJ",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1A1A18"
       },
-      "package": "com.finotty.RegistroPMJ"
+      "package": "com.finotty.registroPMJ"
     },
     "web": {
       "favicon": "./assets/favicon.png"
