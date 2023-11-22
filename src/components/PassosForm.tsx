@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ModalCamera from './ModalCamera';
 import ZoomModal from './ZoomModal';
 
-interface Passo {
+export interface Passo {
   numero: number;
   descricao: string;
   imageUri?: string | undefined;
@@ -69,6 +69,7 @@ const PassosForm: React.FC<PassosFormProps> = ({ onSubmit }) => {
                <Image
                 source={{uri: passo.imageUri}}
                 style={{
+                  zIndex:10,
                   width:300, 
                   height:230, 
                   resizeMode:'contain',marginTop:-30, 

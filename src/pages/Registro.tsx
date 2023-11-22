@@ -21,22 +21,18 @@ export function Registro() {
     const [loading, setLoading] = useState(false);
     const [resolvido, setResolvido] = useState(false);
     const [naoResolvido, setNaoResolvido] = useState(false);
-    const [horaInicial, setHoraInicial] = useState('');
+    const [numeroChamado, setNumeroChamado] = useState('');
     const [horaFinal, setHoraFinal] = useState('');
 
     function formatarMensagem(){
-        const fObs = obs != ''? 'Observação: '+obs: obs;
-        const fResolvido = resolvido == true ? 'Sim (X) Não ( )' : 'Sim ( ) Não (X)';
-        const msg = 'Chamado #'+'\n'+
+        const fObs = obs != ''? 'Observação: '+obs : obs;
+        
+        const msg = 'Chamado n° '+numeroChamado+'\n'+
+                    'Serviço: '+problema+' \n'+
                     'Local do serviço: '+secretaria+' \n'+
-                    'Nome do solicitante: '+solicitante+' \n'+
-                    'Técnico: '+tecnico+' \n\n'+
-                    'Problema: '+problema+' \n\n'+
-                    '*Preenchido pelo técnico*'+'\n'+
-                    '*Horário inicial do suporte: '+horaInicial+' \n'+  
-                    '*Horário final do suporte: '+horaFinal+' \n\n'+    
-                    '*Resolução do suporte: '+solucao+' \n\n'+     
-                    'Resolvido: '+fResolvido+' \n\n' 
+                    'Resolução do suporte: '+solucao+' \n'+     
+                    'Horário final do suporte: '+horaFinal+' \n'+    
+                    'Técnico: '+tecnico+' \n\n'+                
                     fObs
        return msg;
     }
@@ -106,12 +102,13 @@ export function Registro() {
                         <Picker.Item label="Felipe" value="felipe" />
                     </Picker>
                     </View>
-            
-                        <TextInput 
+                                      
+                       <TextInput 
                             style={styles.input}
-                            placeholder='Solicitante:'
-                            onChangeText={setSolicitante}
+                            placeholder='N° Chamado'
+                            onChangeText={setNumeroChamado}
                         />
+            
                        <TextInput 
                             style={styles.input}
                             placeholder='Secretaria:'
@@ -129,28 +126,14 @@ export function Registro() {
                             multiline
                             onChangeText={setSolucao}
                         />
-                            <View style={{flexDirection:'row', width:'82%', justifyContent:'space-between'}}>
-                                <TextInput 
-                                    style={[styles.input,{width:'49%'}]}
-                                    placeholder='Hora Inicial:'
-                                    onChangeText={setHoraInicial}
-                                />
+                            <View style={{ width:'82%'}}>
                                 <TextInput 
                                     style={[styles.input,{width:'49%'}]}
                                     placeholder='Hora Final:'
                                     onChangeText={setHoraFinal}
                                 />
                             </View>
-                        <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',width:'82%',marginTop:-10,marginBottom:5}}>
-                            <Text style={{color:'#fff', fontSize:18, fontWeight:'bold', marginRight:10}}>Resolvido?</Text>
-                            <Text style={{color:'#fff',marginRight:2, fontSize:18}} >Sim</Text>
-                            <Checkbox style={{marginRight:5, backgroundColor:'#fff'}} value={resolvido} onValueChange={setResolvido} />
-                            <Text style={{color:'#fff',marginRight:2, fontSize:18}} >Não</Text>
-                            <Checkbox style={{backgroundColor:'#fff'}} value={naoResolvido} onValueChange={setNaoResolvido} />
-
-                           
-
-                        </View>
+                 
 
                         <TextInput 
                             style={[styles.input,styles.inputMultiline,{height:55}]}

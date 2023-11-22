@@ -38,7 +38,8 @@ export function ListaSolucao() {
      return { 
       solucao: item.solucao,
       title:item.title,
-      dataFechamento: item.when
+      dataFechamento: item.when,
+      
     }})
     setDados(ordersFormatado[0]);
     setModalDetalhes(true);

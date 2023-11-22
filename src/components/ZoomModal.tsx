@@ -52,14 +52,14 @@ const ZoomModal: React.FC<ModalProps> = ({visible,image,onClose,ImgPosition}) =>
       </View>
       <View style={{flex:1,flexDirection:'row', justifyContent:'space-between'}}>
        <Botao style={{width:50, height:50}} title='<' disabled={false} onPress={() => menu('<') }/>
-       <Botao style={{width:50, height:50}} title='-' disabled={false} onPress={() => {} }/>
-       <Botao style={{width:50, height:50}} title='+' disabled={false} onPress={() => alert('test') }/>
+       <Botao style={{width:50, height:50}} title='-' disabled={false} onPress={() => alert('desenvolvimento') }/>
+       <Botao style={{width:50, height:50}} title='+' disabled={false} onPress={() => alert('desenvolvimento') }/>
        <Botao style={{width:50, height:50}} title='>' disabled={false} onPress={() => menu('>') }/>
       </View>
 
       <View style={{flex:1,flexDirection:'row', justifyContent:'space-between'}}>
        <Botao style={{width:50, height:50}} title='X' disabled={false} onPress={close }/>
-       <Botao style={{width:50, height:50}} title='V' disabled={false} onPress={() => alert('test') }/>
+       <Botao style={{width:50, height:50}} title='V' disabled={false} onPress={() => alert('desenvolvimento') }/>
       </View>
      </View>
    </ReactNativeModal>

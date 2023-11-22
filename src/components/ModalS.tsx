@@ -7,6 +7,8 @@ import { getFirestore ,collection,Timestamp,addDoc} from "firebase/firestore";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PassosForm from './PassosForm';
 import ReactNativeModal from 'react-native-modal';
+import { Passo } from './PassosForm';
+import { getStorage } from "firebase/storage";
 
 interface ModalProps {
   visible: boolean;
@@ -16,14 +18,15 @@ interface ModalProps {
 const ModalS: React.FC<ModalProps> = ({ visible, onClose }) => {
   
   const db = getFirestore(app);
-  const [solucao, setSolucao] = useState('');
+  const storage = getStorage(app);
+  const [solucao, setSolucao] = useState<Passo[]>([]);
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false)
 
   const handlePassosSubmit = (passos: any) => {
         // Criando a string "solucao"
         const solucaoForm = passos
-        .map((passo:any) => `Passo ${passo.numero} : ${passo.descricao}`)
+        .map((passo:any) => `Passo ${passo.numero} : ${passo.descricao} \n img: ${passo.imageUri} \n configIMG: ${passo.configImg}`)
         .join('\n\n');
         setSolucao(solucaoForm);
     
@@ -72,7 +75,7 @@ const ModalS: React.FC<ModalProps> = ({ visible, onClose }) => {
                      <Text style={styles.cabecalhoTXT}>Registrar Instrução</Text>
                     </View>
 
-                    <View style={[styles.corpo,{marginTop:50}]}>
+                    <View style={[styles.corpo,{marginTop:50,zIndex:99}]}>
                        <TextInput 
                             style={styles.input}
                             placeholder='Título:'
